@@ -1,0 +1,5 @@
+all:
+  hosts:
+    proxmox:
+      ansible_host: 172.24.6.203
+      ansible_port: 22

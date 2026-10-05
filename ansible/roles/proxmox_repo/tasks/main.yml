@@ -1,0 +1,26 @@
+- name: Disable Proxmox enterprise repositories
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    regexp: '^Enabled:'
+    line: 'Enabled: no'
+    insertafter: EOF
+    create: false
+  loop: 
+    - /etc/apt/sources.list.d/pve-enterprise.sources
+    - /etc/apt/sources.list.d/ceph.sources
+  notify: Update apt cache
+
+- name: Configure Proxmox no-subscription repository
+  ansible.builtin.deb822_repository:
+    name: proxmox
+    types:
+      - deb
+    uris:
+      - http://download.proxmox.com/debian/pve
+    suites:
+      - trixie
+    components:
+      - pve-no-subscription
+    signed_by: /usr/share/keyrings/proxmox-archive-keyring.gpg
+    state: present
+  notify: Update apt cache

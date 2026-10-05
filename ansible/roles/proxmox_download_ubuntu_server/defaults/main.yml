@@ -1,0 +1,13 @@
+ubuntu_cloud_image_version: "26.04"
+ubuntu_cloud_image_codename: "resolute"
+ubuntu_cloud_image_release: "20260927"
+ubuntu_cloud_image_arch: "amd64"
+ubuntu_cloud_image_checksum: "8800651811af9a85465ad1d552add729947bb16488dddb4a9b5305a3d97332b2"
+
+ubuntu_cloud_image_dir: "/var/lib/vz/template/iso"
+
+ubuntu_cloud_image_filename: "ubuntu-{{ ubuntu_cloud_image_version }}-server-cloudimg-{{ ubuntu_cloud_image_arch }}.img"
+ubuntu_cloud_image_base_url: "https://cloud-images.ubuntu.com/releases/{{ ubuntu_cloud_image_codename }}/release-{{ ubuntu_cloud_image_release }}"
+ubuntu_cloud_image_url: "{{ ubuntu_cloud_image_base_url }}/{{ ubuntu_cloud_image_filename }}"
+
+ubuntu_cloud_image_path: "{{ ubuntu_cloud_image_dir }}/{{ ubuntu_cloud_image_filename }}"

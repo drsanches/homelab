@@ -1,0 +1,16 @@
+- name: Ensure cloud image directory exists
+  ansible.builtin.file:
+    path: "{{ ubuntu_cloud_image_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Download Ubuntu cloud image
+  ansible.builtin.get_url:
+    url: "{{ ubuntu_cloud_image_url }}"
+    dest: "{{ ubuntu_cloud_image_path }}"
+    checksum: "sha256:{{ ubuntu_cloud_image_checksum }}"
+    owner: root
+    group: root
+    mode: "0644"
