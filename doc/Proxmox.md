@@ -16,7 +16,7 @@
 
 ```shell
 ansible-playbook \
-    -i proxmox_inventory_example.yml \
+    -i inventory/proxmox.yml \
     -u root --ask-pass \
-    proxmox.yml
+    playbooks/proxmox.yml
 ```
