@@ -20,3 +20,25 @@ ansible-playbook \
     -u root --ask-pass \
     playbooks/proxmox.yml
 ```
+## Run terraform (OpenTofu)
+
+OpenTofu version: 
+```shell
+#tofu version
+
+OpenTofu v1.13.1
+on linux_amd64
+```
+
+Init:
+```shell
+tofu init
+tofu validate
+```
+
+Run:
+```shell
+tofu init
+tofu validate
+tofu fmt
+```
