@@ -94,7 +94,6 @@ Run in `ansible` directory:
 ```shell
 ansible-playbook \
     -i inventory/server.yml \
-    -u user --ask-pass --ask-become-pass \
     playbooks/server.yml
 ```
 

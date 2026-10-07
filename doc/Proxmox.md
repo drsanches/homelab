@@ -17,7 +17,6 @@
 ```shell
 ansible-playbook \
     -i inventory/proxmox.yml \
-    -u root --ask-pass \
     playbooks/proxmox.yml
 ```
 ## Run terraform (OpenTofu)
