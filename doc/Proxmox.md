@@ -12,6 +12,24 @@
 | Hostname (FQDN)      | pve.home.arpa    |
 | Hostname             | pve              |
 
+## SSH
+
+Generate ssh key:
+
+```shell
+ssh-keygen -t ed25519 -f ~/.ssh/homelab-key -C "homelab-key"
+
+# Private key: ~/.ssh/homelab-key
+# Public key: ~/.ssh/homelab-key.pub
+```
+
+Connect:
+
+```shell
+ssh -i ~/.ssh/homelab-key user@192.168.1.123
+```
+
+
 ## Run ansible
 
 ```shell
@@ -19,6 +37,7 @@ ansible-playbook \
     -i inventory/proxmox.yml \
     playbooks/proxmox.yml
 ```
+
 ## Run terraform (OpenTofu)
 
 OpenTofu version: 
@@ -31,13 +50,25 @@ on linux_amd64
 
 Init:
 ```shell
-tofu init
+tofu init \
+  -backend-config="path=path/to/state/proxmox.tfstate"
+
 tofu validate
+```
+
+Format:
+```shell
+tofu fmt
+```
+
+Check:
+```shell
+tofu plan \
+  -var-file="path/to/secrets/proxmox.tfvars"
 ```
 
 Run:
 ```shell
-tofu init
-tofu validate
-tofu fmt
+tofy apply \
+  -var-file="path/to/secrets/proxmox.tfvars"
 ```

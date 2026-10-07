@@ -2,6 +2,7 @@
 
 resource "proxmox_virtual_environment_vm" "home_server" {
   name      = "home-server"
+  vm_id     = 100
   node_name = "pve"
 
   cpu {
@@ -9,7 +10,7 @@ resource "proxmox_virtual_environment_vm" "home_server" {
   }
 
   memory {
-    dedicated = 2048
+    dedicated = 4096
   }
 
   disk {
@@ -21,5 +22,20 @@ resource "proxmox_virtual_environment_vm" "home_server" {
 
   network_device {
     bridge = "vmbr0"
+  }
+
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "${var.home_server_ip}/24"
+        gateway = var.gateway_ip
+      }
+    }
+
+    user_account {
+      username = var.home_server_username
+      password = var.home_server_password
+      keys     = [var.home_server_ssh_public_key]
+    }
   }
 }

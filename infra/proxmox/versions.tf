@@ -9,4 +9,6 @@ terraform {
       version = "~> 0.86"
     }
   }
+
+  backend "local" {}
 }

@@ -68,12 +68,12 @@
 
 Run in `certs` directory with correct ip:
 ```shell
-./generate_certs.sh 172.24.6.204
+./generate_certs.sh 192.168.1.3
 ```
 
 Or with custom parameters (`ip`, `cert-days`, `root-cert-days`, `root-cn`):
 ```shell
-./generate_certs.sh 172.24.6.204 365 3650 serverCA
+./generate_certs.sh 192.168.1.3 365 3650 serverCA
 ```
 
 Reuslts:
@@ -104,7 +104,7 @@ Tests use nmap, so nmap should be installed.
 Run in `tests` directory:
 ```shell
 pytest \
-    --host 172.24.6.204 \
+    --host 192.168.1.3 \
     --opened-ports 123,9435,9436 \
     --https-ports-ok 9435,9436 \
     --ssh_port 123

@@ -1,5 +1,7 @@
 - hosts: all
 
+# TODO: Create ssh key
+
   roles:
     - proxmox_repo
     - proxmox_update
