@@ -1,0 +1,53 @@
+#TODO: Change installation method?
+
+# Docker check
+
+- name: Check for docker binary
+  ansible.builtin.command: which docker
+  changed_when: false
+  failed_when: false
+  register: docker_check
+
+- name: Ensure Docker is enabled and started
+  ansible.builtin.systemd_service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+  when: docker_check.rc == 0
+
+# Installation
+
+- name: Install Docker
+  when: docker_check.rc != 0
+  block:
+    - name: Generate UUID
+      ansible.builtin.command: python3 -c "import uuid; print(uuid.uuid4())"
+      register: generated_uuid
+      changed_when: false
+
+    - name: Create a temporary directory
+      ansible.builtin.file:
+        path: "/tmp/{{ generated_uuid.stdout }}"
+        state: directory
+        mode: '0700'
+
+    - name: Download Docker installation script
+      ansible.builtin.get_url:
+        url: https://get.docker.com
+        dest: "/tmp/{{ generated_uuid.stdout }}/get-docker.sh"
+        mode: '0700'
+
+    - name: Run installation script
+      ansible.builtin.command:
+        cmd: "/tmp/{{ generated_uuid.stdout }}/get-docker.sh"
+      become: true
+
+  always:
+    - name: Remove temporary directory and installation script
+      ansible.builtin.file:
+        path: "/tmp/{{ generated_uuid.stdout }}"
+        state: absent
+      when:
+        - generated_uuid is defined
+        - generated_uuid.stdout is defined

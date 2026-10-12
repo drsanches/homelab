@@ -4,6 +4,6 @@
 
   roles:
     - proxmox_repo
-    - proxmox_update
+    - common_update
     - proxmox_download_ubuntu_server
     #TODO: Reboot?
