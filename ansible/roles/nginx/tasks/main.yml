@@ -1,3 +1,5 @@
+#TODO: Remove (Deprecated)
+
 - name: Create Nginx user
   ansible.builtin.user:
     name: "{{ nginx_user }}"

@@ -1,5 +1,7 @@
 # Overview
 
+TODO: Move to the new HomeServer.md
+
 **Services:**
 - Cockpit
 - Nextcloud
@@ -15,6 +17,8 @@
 4. `sudo apt install python3-pip -y`
 
 ## Folder structure
+
+TODO: Review
 
 ```text
 /
@@ -65,6 +69,8 @@
 # Commands
 
 ### Create certificates
+
+TODO: Refactor
 
 Run in `certs` directory with correct ip:
 ```shell

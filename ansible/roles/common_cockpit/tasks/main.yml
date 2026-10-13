@@ -1,0 +1,2 @@
+- import_tasks: install_and_configure_cockpit.yml
+- import_tasks: configure_nginx.yml

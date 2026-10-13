@@ -1,7 +1,19 @@
 all:
   hosts:
-    server_example:
+    home_server:
       ansible_host: 192.168.1.3
       ansible_port: 123
       ansible_user: user
       ansible_ssh_private_key_file: ~/.ssh/homelab-home-server
+
+      nginx_cert_name: example
+      nginx_cert_path: path/to/the/cert/example.crt
+      nginx_cert_key_path: path/to/the/cert/key/example.key
+      #TODO: Refactor?
+      nginx_ports: 
+        - "9435:9435" #Cockpit
+      #TODO: Refactor?
+      # nginx_networks:
+      #   - nextcloud_external_network
+
+      nginx_cockpit_external_port: 9435

@@ -1,0 +1,33 @@
+services:
+  nginx:
+    image: nginx:1.20.0
+    container_name: nginx_proxy
+    restart: always
+    volumes:
+      - {{ nginx_path }}/config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - {{ nginx_path }}/config/conf.d:/etc/nginx/conf.d
+      - {{ nginx_path }}/ssl:/etc/nginx/ssl
+      - {{ nginx_path }}/logs:/var/log/nginx
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+{% for port in nginx_ports %}
+      - "{{ port }}"
+{% endfor %}
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"] #TODO
+      start_period: 5s
+{% if nginx_networks | default([]) | length > 0 %}
+    networks:
+{% for network in nginx_networks %}
+      - {{ network }}
+{% endfor %}
+{% endif %}
+
+{% if nginx_networks | default([]) | length > 0 %}
+networks:
+{% for network in nginx_networks %}
+  {{ network }}:
+    external: true
+{% endfor %}
+{% endif %}

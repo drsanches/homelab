@@ -1,0 +1,31 @@
+- name: Ensure that Cockpit is installed
+  ansible.builtin.package:
+    name: cockpit
+    state: present
+  become: true
+
+- name: Ensure that the config directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/system/cockpit.socket.d
+    state: directory
+  become: true
+
+- name: Get docker internal IP
+  ansible.builtin.shell: ip -4 addr show docker0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+  register: docker_network_ip_output
+  changed_when: false
+  become: true
+
+- name: Set variable docker_network_ip
+  set_fact:
+    docker_network_ip: "{{ docker_network_ip_output.stdout }}"
+
+- name: Configure Cockpit
+  ansible.builtin.template:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+  loop:
+    - { src: cockpit.conf.j2, dest: /etc/cockpit/cockpit.conf }
+    - { src: listen.conf.j2, dest: /etc/systemd/system/cockpit.socket.d/listen.conf }
+  notify: Restart Cockpit
+  become: true

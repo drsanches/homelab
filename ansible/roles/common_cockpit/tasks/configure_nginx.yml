@@ -1,0 +1,18 @@
+- name: Copy Nginx config for Cockpit
+  ansible.builtin.template:
+    src: "nginx_cockpit.conf.j2"
+    dest: "{{ nginx_path }}/config/conf.d/cockpit.conf"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
+    mode: '0750'
+  notify: Enable and restart Nginx
+  become: true
+
+- name: Create Nginx log directories for Cockpit
+  ansible.builtin.file:
+    path: "{{ nginx_path }}/logs/cockpit"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  become: true

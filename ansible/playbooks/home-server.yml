@@ -3,3 +3,5 @@
   roles:
     - common_update
     - common_docker
+    - common_nginx
+    - common_cockpit
