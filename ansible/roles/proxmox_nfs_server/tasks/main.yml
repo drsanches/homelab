@@ -1,0 +1,30 @@
+#TODO: Make usable for multiple exports and clients
+
+- name: Install NFS server
+  ansible.builtin.apt:
+    name: nfs-kernel-server
+    state: present
+
+- name: Stop NFS server
+  ansible.builtin.systemd:
+    name: nfs-kernel-server
+    state: stopped
+
+- name: Disable NFS autostart
+  ansible.builtin.systemd:
+    name: nfs-kernel-server
+    enabled: false
+
+#TODO: Review and maybe improve
+- name: Configure NFS export
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    regexp: "^{{ nfs_mountpoint | regex_escape }}\\s"
+    line: "{{ nfs_mountpoint }} {{ nfs_allowed_client }}({{ nfs_export_options }})"
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload NFS exports
+
+#TODO: Create script to unlock and mount zfs and then start nfs-kernel-server

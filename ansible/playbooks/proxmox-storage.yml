@@ -1,0 +1,6 @@
+- hosts: all
+
+# TODO: Create ssh key
+
+  roles:
+    - proxmox_nfs_server

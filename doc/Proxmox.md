@@ -12,23 +12,28 @@
 | Hostname (FQDN)      | pve.home.arpa    |
 | Hostname             | pve              |
 
-## SSH
+## ZFS
+<!-- TODO: Add more info -->
 
-Generate ssh key:
-
+Mount:
 ```shell
-ssh-keygen -t ed25519 -f ~/.ssh/homelab-key -C "homelab-key"
-
-# Private key: ~/.ssh/homelab-key
-# Public key: ~/.ssh/homelab-key.pub
+zfs mount tank/example-dataset
 ```
 
-Connect:
-
+Unlock with a password:
 ```shell
-ssh -i ~/.ssh/homelab-key user@192.168.1.123
+zfs load-key tank/example-dataset
 ```
 
+Check:
+```shell
+zfs get keystatus,mounted tank/home-server-storage
+```
+
+Run NFS:
+```shell
+systemctl start nfs-kernel-server
+```
 
 ## Run ansible
 
@@ -36,6 +41,12 @@ ssh -i ~/.ssh/homelab-key user@192.168.1.123
 ansible-playbook \
     -i inventory/proxmox.yml \
     playbooks/proxmox.yml
+```
+
+```shell
+ansible-playbook \
+    -i inventory/proxmox-storage.yml \
+    playbooks/proxmox-storage.yml
 ```
 
 ## Run terraform (OpenTofu)

@@ -1,0 +1,13 @@
+all:
+  hosts:
+    proxmox:
+      ansible_host: 192.168.1.2
+      ansible_port: 22
+      ansible_user: root
+      ansible_password: password
+
+      #TODO: Refactor
+      nfs_dataset: tank/home-server-storage
+      nfs_mountpoint: /tank/home-server-storage
+      nfs_allowed_client: 192.168.1.50
+      nfs_export_options: "rw,sync,no_subtree_check,root_squash"

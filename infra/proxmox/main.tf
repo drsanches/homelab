@@ -1,5 +1,3 @@
-#TODO: Finish the configuration
-
 resource "proxmox_virtual_environment_vm" "home_server" {
   name      = "home-server"
   vm_id     = 100
