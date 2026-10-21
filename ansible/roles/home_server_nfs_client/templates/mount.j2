@@ -1,0 +1,9 @@
+[Unit]
+Description=NFS mount {{ nfs_mount_path }}
+After=network.target
+
+[Mount]
+What={{ nfs_mount_server }}:{{ nfs_mount_export }}
+Where={{ nfs_mount_path }}
+Type=nfs
+Options={{ nfs_mount_options }}

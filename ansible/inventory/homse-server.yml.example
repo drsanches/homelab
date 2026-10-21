@@ -17,3 +17,9 @@ all:
       #   - nextcloud_external_network
 
       nginx_cockpit_external_port: 9435
+
+      nfs_mount_server: "192.168.1.2"
+      nfs_mount_export: "/tank/home-server-storage"
+      nfs_mount_path: "/mnt/storage"
+      nfs_mount_unit: "mnt-storage"
+      nfs_mount_options: "rw,hard,_netdev" #TODO: What to do if the server is down? Should we use soft instead of hard?

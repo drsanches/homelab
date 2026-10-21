@@ -16,3 +16,12 @@ Connect:
 ```shell
 ssh -i ~/.ssh/homelab-key user@192.168.1.123
 ```
+
+## NFS
+<!-- TODO: Review the approach and improve -->
+<!-- TODO: Isolate network for NFS -->
+
+```shell
+sudo systemctl start mnt-storage.mount
+```
+

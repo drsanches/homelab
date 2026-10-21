@@ -1,0 +1,26 @@
+#TODO: Refactor this role
+
+- name: Install NFS client
+  ansible.builtin.package:
+    name: "{{ nfs_mount_packages[ansible_facts['os_family']] }}"
+    state: present
+  become: true
+
+- name: Create mount point
+  ansible.builtin.file:
+    path: "{{ nfs_mount_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+
+- name: Install systemd mount unit
+  ansible.builtin.template:
+    src: mount.j2
+    dest: "/etc/systemd/system/{{ nfs_mount_unit }}.mount"
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+  notify: Reload systemd

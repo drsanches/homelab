@@ -15,19 +15,19 @@
 ## ZFS
 <!-- TODO: Add more info -->
 
-Mount:
-```shell
-zfs mount tank/example-dataset
-```
-
 Unlock with a password:
 ```shell
 zfs load-key tank/example-dataset
 ```
 
+Mount:
+```shell
+zfs mount tank/example-dataset
+```
+
 Check:
 ```shell
-zfs get keystatus,mounted tank/home-server-storage
+zfs get keystatus,mounted tank/example-dataset
 ```
 
 Run NFS:

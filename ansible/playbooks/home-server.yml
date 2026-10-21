@@ -5,3 +5,4 @@
     - common_docker
     - common_nginx
     - common_cockpit
+    - home_server_nfs_client
