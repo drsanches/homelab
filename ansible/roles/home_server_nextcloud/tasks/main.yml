@@ -1,0 +1,6 @@
+#TODO: Use new approach
+
+- import_tasks: install_nextcloud.yml
+#TODO: Fix nextcloud configuration
+# - import_tasks: configure_nextcloud.yml
+- import_tasks: configure_nginx.yml

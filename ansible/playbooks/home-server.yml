@@ -6,3 +6,4 @@
     - common_nginx
     - common_cockpit
     - home_server_nfs_client
+    - home_server_nextcloud

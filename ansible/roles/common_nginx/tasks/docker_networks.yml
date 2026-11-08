@@ -1,0 +1,36 @@
+#TODO: Refactor
+
+- name: Ensure Docker service is running
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+
+- name: Check existing Docker networks
+  ansible.builtin.command:
+    argv:
+      - docker
+      - network
+      - inspect
+      - "{{ item }}"
+  loop: "{{ nginx_networks }}"
+  register: network_check
+  changed_when: false
+  failed_when: false
+  become: true
+
+- name: Create missing Docker networks
+  ansible.builtin.command:
+    argv:
+      - docker
+      - network
+      - create
+      - --driver
+      - bridge
+      - "{{ item.item }}"
+  loop: "{{ network_check.results }}"
+  when: item.rc != 0
+  loop_control:
+    label: "{{ item.item }}"
+  become: true

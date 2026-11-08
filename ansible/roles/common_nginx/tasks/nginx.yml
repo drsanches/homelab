@@ -1,0 +1,66 @@
+- name: Create Nginx user
+  ansible.builtin.user:
+    name: "{{ nginx_user }}"
+    groups: docker
+    comment: "Nginx service user"
+    shell: /usr/sbin/nologin
+    system: yes
+    create_home: yes #TODO: Do not create?
+    home: "{{ nginx_path }}"
+  become: true
+
+- name: Create directories for Nginx
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
+    mode: '0750'
+  loop:
+    - "{{ nginx_path }}/config/conf.d"
+    - "{{ nginx_path }}/ssl"
+  become: true
+
+- name: Copy certs
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
+    mode: '0750'
+  loop:
+    - { src: "{{ nginx_cert_path }}", dest: "{{ nginx_path }}/ssl/{{ nginx_cert_name }}.crt" }
+    - { src: "{{ nginx_cert_key_path }}", dest: "{{ nginx_path }}/ssl/{{ nginx_cert_name }}.key" }
+  notify: Enable and restart Nginx
+  become: true
+
+- name: Create directories for logs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+      - "{{ nginx_path }}/logs"
+  become: true
+
+- name: Copy Nginx configs
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
+    mode: '0750'
+  loop:
+    - { src: docker-compose.yml.j2, dest: "{{ nginx_path }}/docker-compose.yml" }
+    - { src: nginx.service.j2, dest: /etc/systemd/system/nginx.service }
+  notify: Enable and restart Nginx
+  become: true
+
+- name: Copy main Nginx config
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: "{{ nginx_path }}/config/nginx.conf"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
+    mode: '0750'
+  notify: Enable and restart Nginx
+  become: true
