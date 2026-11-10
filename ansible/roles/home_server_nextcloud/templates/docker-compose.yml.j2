@@ -19,8 +19,9 @@ services:
       - default
 
   nextcloud:
-    image: nextcloud:22.0.0-apache
+    image: nextcloud:22.2.10-apache
     container_name: nextcloud
+    user: "33:0"
     restart: always
     volumes:
       - {{ nextcloud_data_directory }}/app_data:/var/www/html
