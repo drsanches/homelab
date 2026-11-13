@@ -1,5 +1,3 @@
-#TODO: Use environment for configuration (it probably doesn't work on my version) - https://hub.docker.com/_/nextcloud/#auto-configuration-via-environment-variables
-
 - name: Check if Nextcloud config file exists
   stat:
     path: "{{nextcloud_path}}/data/app_data/config/config.php"
