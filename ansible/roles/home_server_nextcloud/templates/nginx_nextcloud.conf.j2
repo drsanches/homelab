@@ -1,5 +1,7 @@
 server {
     listen {{ nginx_nextcloud_external_port }} ssl;
+
+    add_header Strict-Transport-Security "max-age=15552000" always;
     
     ssl_certificate /etc/nginx/ssl/{{ nginx_cert_name }}.crt;
     ssl_certificate_key /etc/nginx/ssl/{{ nginx_cert_name }}.key;
@@ -9,8 +11,28 @@ server {
 
     client_max_body_size 10G;
 
+    #### See https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/reverse_proxy_configuration.html?utm_source=chatgpt.com#nginx
+    
+    location /.well-known/carddav {
+        return 301 $scheme://$http_host/remote.php/dav;
+    }
+    
+    location /.well-known/caldav {
+        return 301 $scheme://$http_host/remote.php/dav;
+    }
+    
+    location ^~ /.well-known {
+        return 301 $scheme://$http_host/index.php$uri;
+    }
+
+    ####
+
     location / {
         proxy_pass http://nextcloud;
+        
+        # TODO: For /checksetup, it's necessary to figure out why it is so slow
+        proxy_read_timeout 600s;
+
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

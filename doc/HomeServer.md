@@ -1,5 +1,10 @@
 #TODO
 
+## TODO
+
+- Fix nextcloud background jobs
+- Check service users permissions
+
 ## SSH
 
 Generate ssh key:
