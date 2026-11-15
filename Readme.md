@@ -1,4 +1,5 @@
 # Overview
 
-- [Proxmox](doc/Proxmox.md)
-- [Server](doc/Server.md)
+- [Proxmox](doc/proxmox.md)
+- [Home server](doc/home-server.md)
+- [Other](doc/other.md)

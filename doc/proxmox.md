@@ -12,30 +12,41 @@
 | Hostname (FQDN)      | pve.home.arpa    |
 | Hostname             | pve              |
 
-## ZFS
-<!-- TODO: Add more info -->
+## After start
 
-Unlock with a password:
-```shell
-zfs load-key tank/example-dataset
-```
+### Home server
 
-Mount:
-```shell
-zfs mount tank/example-dataset
-```
+1. Unlock ZFS with a password:
 
-Check:
-```shell
-zfs get keystatus,mounted tank/example-dataset
-```
+  ```shell
+  zfs load-key tank/home-server-storage
+  ```
 
-Run NFS:
-```shell
-systemctl start nfs-kernel-server
-```
+2. Mount ZFS
 
-## Run ansible
+  ```shell
+  zfs mount tank/home-server-storage
+  ```
+
+3. Check ZFS
+
+  ```shell
+  zfs get keystatus,mounted tank/home-server-storage
+  ```
+
+4. Run NFS:
+
+  ```shell
+  systemctl start nfs-kernel-server
+  ```
+
+5. Prepare home-server
+
+## Configuration
+
+### Ansible
+
+Base setup after OS installation:
 
 ```shell
 ansible-playbook \
@@ -43,20 +54,22 @@ ansible-playbook \
     playbooks/proxmox.yml
 ```
 
+Setup NFS server as data storage:
+
 ```shell
 ansible-playbook \
     -i inventory/proxmox-storage.yml \
     playbooks/proxmox-storage.yml
 ```
 
-## Run terraform (OpenTofu)
+### Terraform (OpenTofu)
 
 OpenTofu version: 
 ```shell
-#tofu version
+tofu version
 
-OpenTofu v1.13.1
-on linux_amd64
+#OpenTofu v1.13.1
+#on linux_amd64
 ```
 
 Init:
@@ -82,4 +95,18 @@ Run:
 ```shell
 tofy apply \
   -var-file="path/to/secrets/proxmox.tfvars"
+```
+
+## Test ports
+
+Tests use nmap, so nmap should be installed.
+
+Run in `tests` directory:
+
+```shell
+pytest \
+    --host 192.168.1.2 \
+    --opened-ports 22,8006 \
+    --https-ports-ok 8006 \
+    --ssh_port 22
 ```

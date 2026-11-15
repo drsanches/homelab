@@ -2,7 +2,7 @@ all:
   hosts:
     home_server:
       ansible_host: 192.168.1.3
-      ansible_port: 123
+      ansible_port: 22
       ansible_user: user
       ansible_ssh_private_key_file: ~/.ssh/homelab-home-server
 
@@ -32,5 +32,5 @@ all:
       nextcloud_db_root_password: pswd
       nextcloud_db_password: pswd
       nextcloud_protocol: https
-      nextcloud_host: 192.168.1.101
+      nextcloud_host: 192.168.1.3
       nextcloud_port: 9436

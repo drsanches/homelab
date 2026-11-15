@@ -3,11 +3,11 @@ all:
     #TODO
     server_example:
       ansible_host: 192.168.1.3
-      ansible_port: 123
+      ansible_port: 22
       ansible_user: user
       ansible_password: password
       ansible_become_password: password
-      ssh_config_new_port: 123
+      ssh_config_new_port: 22
       nextcloud_data_directory: /mnt/md127/nextcloud
       nextcloud_db_root_password: pswd
       nextcloud_db_password: pswd
