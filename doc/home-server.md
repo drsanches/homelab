@@ -6,7 +6,7 @@
 - Review NFS approach and improve it (at least isolate network)
 
 **Services:**
-- Cockpit
+- Cockpit (cockpit.socket)
 - Nextcloud
 - Nginx (proxy)
 - mnt-storage.mount (NFS mount, the name and path can be configured)
