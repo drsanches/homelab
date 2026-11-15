@@ -1,9 +1,0 @@
-#TODO: Remove?
-
-- name: Set new ssh port in the config
-  ansible.builtin.lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: 'Port '
-    line: Port {{ ssh_config_new_port }}
-  notify: Restart ssh
-  become: true

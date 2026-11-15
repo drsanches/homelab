@@ -1,4 +1,0 @@
-nginx_user: nginx
-nginx_path: /srv/nginx
-cert_name: server
-cockpit_internal_port: 9090 # Default, but can be configured

@@ -1,8 +1,0 @@
-- hosts: all
-
-  roles:
-    - ssh_config
-    - common_docker
-    - cockpit
-    - nextcloud
-    - nginx
