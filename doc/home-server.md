@@ -86,17 +86,3 @@ ansible-playbook \
     -i inventory/home-server.yml \
     playbooks/home-server.yml
 ```
-
-## Test ports
-
-Tests use nmap, so nmap should be installed.
-
-Run in `tests` directory:
-
-```shell
-pytest \
-    --host 192.168.1.3 \
-    --opened-ports 22,9435,9436 \
-    --https-ports-ok 9435,9436 \
-    --ssh_port 22
-```

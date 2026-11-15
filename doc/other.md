@@ -40,3 +40,21 @@ server.key - Server private key
 
 Auxiliary files: server.csr, san.cnf
 ```
+
+## Test ports
+
+Tests use nmap, so nmap should be installed.
+
+Example:
+- Opened http ports: 9001, 9002
+- SSH port: 22
+
+Run in `tests` directory:
+
+```shell
+pytest \
+    --host 192.168.1.2 \
+    --opened-ports 22,9001,9002 \
+    --https-ports-ok 9001,9002 \
+    --ssh_port 22
+```

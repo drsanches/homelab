@@ -96,17 +96,3 @@ Run:
 tofy apply \
   -var-file="path/to/secrets/proxmox.tfvars"
 ```
-
-## Test ports
-
-Tests use nmap, so nmap should be installed.
-
-Run in `tests` directory:
-
-```shell
-pytest \
-    --host 192.168.1.2 \
-    --opened-ports 22,8006 \
-    --https-ports-ok 8006 \
-    --ssh_port 22
-```
