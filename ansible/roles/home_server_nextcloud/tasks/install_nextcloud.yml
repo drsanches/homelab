@@ -20,13 +20,6 @@
     mode: '0750'
   become: true
 
-- name: Ensure Nextcloud data directory exists
-  ansible.builtin.file:
-    path: "{{ nextcloud_path }}/data"
-    state: directory
-    #TODO: Add owner and group?
-  become: true
-
 - name: Check if storage data directory exists
   ansible.builtin.stat:
     path: "{{ nextcloud_data_directory }}"
@@ -39,16 +32,6 @@
       - data_directory_status.stat.exists
       - data_directory_status.stat.isdir
     fail_msg: "Required directory {{ nextcloud_data_directory }} does not exist!"
-  become: true
-
-- name: Mount data directory
-  ansible.builtin.mount: #TODO: Use ansible.posix.mount
-    path: "{{ nextcloud_path }}/data"
-    src: "{{ nextcloud_data_directory }}"
-    fstype: none
-    opts: bind
-    state: mounted
-  notify: Enable and restart Nextcloud
   become: true
 
 - name: Copy Nextcloud configs

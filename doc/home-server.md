@@ -45,8 +45,7 @@
 ├── srv/
 │   ├── nextcloud/
 │   │   ├── docker-copmose.yml              # [Nextcloud] Nextcloud docker compose
-│   │   ├── .env                            # [Nextcloud] Environment for docker compose
-│   │   └── data/                           # [Nextcloud] Mounted {{ nextcloud_data_directory }}
+│   │   └── .env                            # [Nextcloud] Environment for docker compose
 │   │
 │   └── nginx/
 │       ├── config/
