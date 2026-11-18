@@ -46,6 +46,8 @@
 
 ### Ansible
 
+Run in `ansible` directory.
+
 Base setup after OS installation:
 
 ```shell
@@ -63,6 +65,8 @@ ansible-playbook \
 ```
 
 ### Terraform (OpenTofu)
+
+Run in `infra/proxmox` directory:
 
 OpenTofu version: 
 ```shell
